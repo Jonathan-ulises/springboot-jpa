@@ -18,7 +18,7 @@ public class Person {
     private String name;
     private String lastname;
 
-    @Column(name = "programmig_language")
+    @Column(name = "programming_language")
     private String programmingLanguage;
 
     public Person() {
