@@ -40,12 +40,13 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		Scanner scanner = new Scanner(System.in);
 		System.out.println("Ingrse le ID de la persona a eliminar: ");
 		Long id = scanner.nextLong();
-		repository.deleteById(id);
-		scanner.close();
 
+		Optional<Person> optionalPerson = repository.findById(id);
+		optionalPerson.ifPresentOrElse(repository::delete, 
+			() -> System.out.println("El usuario no existe"));
+		scanner.close();
+		
 		repository.findAll().forEach(System.out::println);
-
-		scanner.close();
 	}
 
 	@Transactional
