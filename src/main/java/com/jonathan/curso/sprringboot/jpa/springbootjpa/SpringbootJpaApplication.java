@@ -27,7 +27,58 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// list();
 		// findOne();
-		create();
+		// create();
+		// update();
+		// delete();
+		delete2();
+	}
+
+	@Transactional
+	public void delete2() {
+		repository.findAll().forEach(System.out::println);
+
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Ingrse le ID de la persona a eliminar: ");
+		Long id = scanner.nextLong();
+		repository.deleteById(id);
+		scanner.close();
+
+		repository.findAll().forEach(System.out::println);
+
+		scanner.close();
+	}
+
+	@Transactional
+	public void delete() {
+		repository.findAll().forEach(System.out::println);
+
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Ingrse le ID de la persona a eliminar: ");
+		Long id = scanner.nextLong();
+		repository.deleteById(id);
+		scanner.close();
+
+		repository.findAll().forEach(System.out::println);
+
+		scanner.close();
+	}
+
+	@Transactional
+	public void update() {
+		Scanner scanner = new Scanner(System.in);
+		System.out.println("Ingrse le ID de la persona a editar: ");
+		Long id = scanner.nextLong();
+
+		Optional<Person> optionalPerson = repository.findById(id);
+		optionalPerson.ifPresent(person -> {
+			System.out.println(person);
+			System.out.println("Ingrese el lenguaje de programacion:");
+			String programmingLanguage = scanner.next();
+			person.setProgrammingLanguage(programmingLanguage);
+			Person prsonBd = repository.save(person);
+			System.out.println(prsonBd);
+		});
+		scanner.close();
 	}
 
 	@Transactional
