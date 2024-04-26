@@ -31,7 +31,22 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		// update();
 		// delete();
 		// delete2();
-		personalizedQueries();
+		// personalizedQueries();
+		personalizedQueries2();
+	}
+
+	@Transactional(readOnly = true)
+	public void personalizedQueries2() {
+		System.out.println("========== Consulta por objeto persona y lenguage de programacion ==========");
+		List<Object[]> personsReg = repository.findAllMixPersonDataList();
+
+		personsReg.forEach(reg -> {
+			System.out.println("programmingLanguage="+reg[1] + ", person=" + reg[0]);
+		});
+
+		System.out.println(" Consulta que puebla y devuelve objeto entity de una instancia personalizada");
+		List<Person> persons = repository.findAllObjectPersonPersonalized();
+		persons.forEach(System.out::println);
 	}
 
 	@Transactional(readOnly = true)
