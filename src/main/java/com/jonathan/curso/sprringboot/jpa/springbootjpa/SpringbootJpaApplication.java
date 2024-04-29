@@ -30,7 +30,7 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		// list();
 		// findOne();
 		// create();
-		// update();
+		update();
 		// delete();
 		// delete2();
 		// personalizedQueries();
@@ -40,7 +40,7 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		// perzonalizedQueriesBetween();
 		// queriesFunctionAggregation();
 		// subqueries();
-		whereIn();
+		// whereIn();
 	}
 
 	@Transactional(readOnly = true)
