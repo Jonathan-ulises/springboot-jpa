@@ -12,6 +12,18 @@ import com.jonathan.curso.sprringboot.jpa.springbootjpa.entities.Person;
 public interface PersonRepository extends CrudRepository<Person, Long> {
 
 
+    @Query("SELECT COUNT(DISTINCT(p.programmingLanguage)) FROM Person p")
+    Long findAllProgrammintLanguageDistinctCount();
+
+    @Query("SELECT DISTINCT(p.programmingLanguage) FROM Person p")
+    List<String> findAllProgrammintLanguageDistinct();
+
+    @Query("SELECT p.name FROM Person p")
+    List<String> findAllNames();
+
+    @Query("SELECT DISTINCT(p.name) FROM Person p")
+    List<String> findAllNamesDistinct();
+
     @Query("SELECT new com.jonathan.curso.sprringboot.jpa.springbootjpa.dto.PersonDto(p.name, p.lastname) FROM Person p")
     List<PersonDto> findAllObjectPersonDto();
 
