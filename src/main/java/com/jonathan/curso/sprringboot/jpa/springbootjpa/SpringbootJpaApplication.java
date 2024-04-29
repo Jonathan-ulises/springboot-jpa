@@ -48,6 +48,8 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		persons = repository.fullAllBetweenName("J", "Q");
 		persons.forEach(System.out::println);
 
+		persons = repository.findAllByOrderByNameAscLastnameDesc();
+		persons.forEach(System.out::println);
 	}
 
 	@Transactional(readOnly = true)

@@ -11,6 +11,10 @@ import com.jonathan.curso.sprringboot.jpa.springbootjpa.entities.Person;
 
 public interface PersonRepository extends CrudRepository<Person, Long> {
 
+    List<Person> findAllByOrderByNameAscLastnameDesc();
+
+    @Query("SELECT p FROM Person p ORDER BY p.name, p.lastname DESC")
+    List<Person> getAllOrdered();
 
     List<Person> findByIdBetweenOrderByIdDesc(Long id1, Long id2);
 
