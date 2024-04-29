@@ -11,6 +11,25 @@ import com.jonathan.curso.sprringboot.jpa.springbootjpa.entities.Person;
 
 public interface PersonRepository extends CrudRepository<Person, Long> {
 
+
+    @Query("SELECT p.name, LENGTH(p.name) FROM Person p WHERE LENGTH(p.name)=(SELECT MIN(LENGTH(p.name)) from Person p)")
+    public List<Object[]> getShorterName();
+
+    @Query("SELECT p FROM Person p WHERE p.id = (SELECT MAX(p.id) FROM Person p)")
+    public Optional<Person> getLastRegistration();
+
+    @Query("SELECT MIN(p.id), MAX(p.id), SUM(p.id), AVG(LENGTH(p.name)), COUNT(p.id) FROM Person p")
+    public Object getResumeAggregationFunction();
+
+    @Query("SELECT MIN(LENGTH(p.name)) FROM Person p")
+    public Integer getMinLengthName();
+
+    @Query("SELECT MAX(LENGTH(p.name)) FROM Person p")
+    public Integer getMaxLengthName();
+
+    @Query("SELECT p.name, LENGTH(p.name) FROM Person p")
+    public List<Object[]> getPersonNameLength();
+
     @Query("SELECT COUNT(p) FROM Person p")
     Long totalPerson();
 

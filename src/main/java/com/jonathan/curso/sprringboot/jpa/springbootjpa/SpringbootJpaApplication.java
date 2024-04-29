@@ -37,7 +37,23 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		// personalizedQuieriesDistinct();
 		// personalizedQuieriesConcatUpperAndLowerCase();
 		// perzonalizedQueriesBetween();
-		queriesFunctionAggregation();
+		// queriesFunctionAggregation();
+		subqueries();
+	}
+
+	@Transactional(readOnly = true)
+	public void subqueries() {
+		System.out.println("========== consulta por el nombre mas corto y su largo ==========");
+		List<Object[]> registers = repository.getShorterName();
+		registers.forEach(reg -> {
+			String name = (String) reg[0];
+			Integer length = (Integer) reg[1];
+			System.out.println("name = " + name + ", length = " + length);
+		});
+
+		System.out.println("========== consulta para obtener el ultimo registro de persona ==========");
+		Optional<Person> optionalPerson = repository.getLastRegistration();
+		optionalPerson.ifPresent(System.out::println);
 	}
 
 	@Transactional(readOnly = true)
@@ -55,7 +71,29 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		Long max = repository.maxId();
 		System.out.println(max);
 
+		System.out.println("========== Consulta con su nombre y su largo ==========");
+		List<Object[]> regs = repository.getPersonNameLength();
+		regs.forEach(reg -> {
+			String name = (String) reg[0];
+			Integer length = (Integer) reg[1];
+			System.out.println("name = " + name + ", length = " + length);
+		});
 
+		System.out.println("========== consulta con el nombre mas corto ==========");
+		Integer minLengthName = repository.getMinLengthName();
+		System.out.println(minLengthName);
+
+		System.out.println("========== consulta con el nombre mas largo ==========");
+		Integer maxLengthName = repository.getMaxLengthName();
+		System.out.println(maxLengthName);
+
+		System.out.println("========== consultas resumen de funciones de agregacion min, max, sum, count ==========");
+		Object[] resumeReg = (Object[]) repository.getResumeAggregationFunction();
+		System.out.println("min = " + resumeReg[0] 
+								+ ", max = " + resumeReg[1] 
+								+ ", sum = " + resumeReg[2] 
+								+ ", avg = " + resumeReg[3] 
+								+ ", count = " + resumeReg[4]);
 	}
 
 	@Transactional(readOnly = true)
