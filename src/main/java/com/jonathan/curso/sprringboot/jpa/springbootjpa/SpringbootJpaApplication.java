@@ -35,7 +35,19 @@ public class SpringbootJpaApplication implements CommandLineRunner {
 		// personalizedQueries();
 		// personalizedQueries2();
 		// personalizedQuieriesDistinct();
-		personalizedQuieriesConcatUpperAndLowerCase();
+		// personalizedQuieriesConcatUpperAndLowerCase();
+		perzonalizedQueriesBetween();
+	}
+
+	@Transactional(readOnly = true)
+	public void perzonalizedQueriesBetween() {
+		System.out.println("========== consultas por rangos ==========");
+		List<Person> persons = repository.fullAllBetweenId();
+		persons.forEach(System.out::println);
+
+		persons = repository.fullAllBetweenName();
+		persons.forEach(System.out::println);
+
 	}
 
 	@Transactional(readOnly = true)
